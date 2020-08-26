@@ -2,9 +2,14 @@ const express = require('express')
 const path = require('path')
 const morgan = require('morgan')
 const compression = require('compression')
+const session = require('express-session')
 const db = require('./db')
+const SequelizeStore = require('connect-session-sequelize')(session.Store)
+const sessionStore = new SequelizeStore({ db })
 const app = express()
 const PORT = process.env.PORT || 8080
+
+if (process.env.NODE_ENV === 'development') require('../secrets')
 
 // redirect http requests to https
 if (process.env.NODE_ENV === 'production') {
@@ -27,11 +32,24 @@ app.use(express.urlencoded({ extended: true }))
 // downloadable data sent to user
 app.use(compression())
 
+// session middleware
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET,
+    store: sessionStore,
+    resave: false,
+    saveUninitialized: true,
+  })
+)
+
 // static file serving middleware
 app.use(express.static(path.join(__dirname, '..', 'public')))
 
 // api middleware
 app.use('/api', require('./api'))
+
+// authentization middleware
+app.use('/auth', require('./auth'))
 
 // sends 404 for any remaining requests with an extension (.js, .css, etc.)
 app.use((req, res, next) => {
