@@ -3,6 +3,7 @@ const path = require('path')
 const morgan = require('morgan')
 const compression = require('compression')
 const session = require('express-session')
+const passport = require('passport')
 const db = require('./db')
 const SequelizeStore = require('connect-session-sequelize')(session.Store)
 const sessionStore = new SequelizeStore({ db })
@@ -19,6 +20,16 @@ if (process.env.NODE_ENV === 'production') {
     else next()
   })
 }
+
+passport.serializeUser((user, done) => done(null, user.id))
+passport.deserializeUser(async (id, done) => {
+  try {
+    const user = await db.models.user.findByPk(id)
+    done(null, user)
+  } catch (error) {
+    done(error)
+  }
+})
 
 // logging middleware
 app.use(morgan('dev'))
@@ -41,6 +52,9 @@ app.use(
     saveUninitialized: true,
   })
 )
+
+app.use(passport.initialize())
+app.use(passport.session())
 
 // static file serving middleware
 app.use(express.static(path.join(__dirname, '..', 'public')))
