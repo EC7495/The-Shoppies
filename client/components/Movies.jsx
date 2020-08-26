@@ -20,10 +20,14 @@ const Movies = () => {
   }
 
   return (
-    <div id="movie">
+    <div id="movies">
       <form onSubmit={handleOnSubmit}>
         <label htmlFor="movie-title">Title</label>
-        <input value={movieTitle} onChange={handleOnChange} />
+        <input
+          name="movie-title"
+          value={movieTitle}
+          onChange={handleOnChange}
+        />
         <button type="submit">Enter</button>
         {movies.map(movie => (
           <div key={movie.imdbID}>

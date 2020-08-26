@@ -1,6 +1,7 @@
 const Sequelize = require('sequelize')
 const db = require('../db')
 const crypto = require('crypto')
+
 const User = db.define('user', {
   username: {
     type: Sequelize.STRING,
@@ -27,9 +28,19 @@ const User = db.define('user', {
       return () => this.getDataValue('salt')
     },
   },
+
+  nominations: {
+    type: Sequelize.ARRAY(Sequelize.STRING),
+    defaultValue: [],
+    validate: {
+      validateLength(value) {
+        if (value.length > 5) throw new Error('Max nominations reached')
+      },
+    },
+  },
 })
 
-User.prototype.correctPassword = password => {
+User.prototype.correctPassword = function (password) {
   return User.encryptPassword(password, this.salt()) === this.password()
 }
 

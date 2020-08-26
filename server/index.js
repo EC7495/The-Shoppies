@@ -90,8 +90,8 @@ app.use((err, req, res, next) => {
 
 !(async () => {
   await db.sync({ force: process.env.NODE_ENV === 'development' })
-  console.log('Database synced successfully...')
+  console.log('\nDatabase synced successfully...')
   app.listen(PORT, () =>
-    console.log(`Listening on port:${PORT}\nhttp://localhost:${PORT}`)
+    console.log(`Listening on port:${PORT}\nhttp://localhost:${PORT}\n`)
   )
 })()

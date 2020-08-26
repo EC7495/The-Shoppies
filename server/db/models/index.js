@@ -1,7 +1,5 @@
-const Movies = require('./Movies')
-const Users = require('./Users')
+const User = require('./User')
 
 module.exports = {
-  Movies,
-  Users,
+  User,
 }
