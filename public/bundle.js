@@ -98,9 +98,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AuthForm", function() { return AuthForm; });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @material-ui/core */ "./node_modules/@material-ui/core/esm/index.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @material-ui/core */ "./node_modules/@material-ui/core/esm/index.js");
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
@@ -120,13 +121,15 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
-var useStyles = Object(_material_ui_core__WEBPACK_IMPORTED_MODULE_2__["makeStyles"])(function (theme) {
+
+var useStyles = Object(_material_ui_core__WEBPACK_IMPORTED_MODULE_3__["makeStyles"])(function (theme) {
   return {
-    login: {
-      height: '100vh',
+    form: {
+      height: '45vh',
+      width: '65vw',
       display: 'flex',
       flexDirection: 'column',
-      justifyContent: 'center',
+      justifyContent: 'space-evenly',
       alignItems: 'center'
     },
     method: {
@@ -135,6 +138,12 @@ var useStyles = Object(_material_ui_core__WEBPACK_IMPORTED_MODULE_2__["makeStyle
         textDecoration: 'underline',
         color: 'lightblue'
       }
+    },
+    auth: {
+      height: '100vh',
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center'
     }
   };
 });
@@ -177,7 +186,7 @@ var AuthForm = function AuthForm(_ref) {
             case 0:
               _context.prev = 0;
               _context.next = 3;
-              return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get('/auth/me');
+              return axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/auth/me');
 
             case 3:
               _yield$axios$get = _context.sent;
@@ -217,8 +226,6 @@ var AuthForm = function AuthForm(_ref) {
 
   var handleOnSubmit = /*#__PURE__*/function () {
     var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(event) {
-      var _yield$axios$post, user;
-
       return regeneratorRuntime.wrap(function _callee2$(_context2) {
         while (1) {
           switch (_context2.prev = _context2.next) {
@@ -226,31 +233,29 @@ var AuthForm = function AuthForm(_ref) {
               event.preventDefault();
               _context2.prev = 1;
               _context2.next = 4;
-              return axios__WEBPACK_IMPORTED_MODULE_1___default.a.post("/auth/".concat(method), {
+              return axios__WEBPACK_IMPORTED_MODULE_2___default.a.post("/auth/".concat(method), {
                 username: username,
                 password: password
               });
 
             case 4:
-              _yield$axios$post = _context2.sent;
-              user = _yield$axios$post.data;
               setUsername('');
               setPassword('');
               history.push('/home');
-              _context2.next = 14;
+              _context2.next = 12;
               break;
 
-            case 11:
-              _context2.prev = 11;
+            case 9:
+              _context2.prev = 9;
               _context2.t0 = _context2["catch"](1);
               setLoginError(true);
 
-            case 14:
+            case 12:
             case "end":
               return _context2.stop();
           }
         }
-      }, _callee2, null, [[1, 11]]);
+      }, _callee2, null, [[1, 9]]);
     }));
 
     return function handleOnSubmit(_x) {
@@ -259,8 +264,9 @@ var AuthForm = function AuthForm(_ref) {
   }();
 
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    id: "auth-form"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_2__["Snackbar"], {
+    id: "auth-form",
+    className: classes.auth
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_3__["Snackbar"], {
     message: method === 'login' ? 'Wrong username and/or password' : 'That username already exists!',
     open: loginError,
     onClose: function onClose() {
@@ -273,30 +279,31 @@ var AuthForm = function AuthForm(_ref) {
     autoHideDuration: 3000
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
     onSubmit: handleOnSubmit,
-    className: classes.login
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_2__["TextField"], {
+    className: classes.form
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_3__["TextField"], {
     required: true,
     name: "username",
     label: "Username",
     value: username,
     onChange: handleOnChange
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_2__["TextField"], {
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_3__["TextField"], {
     required: true,
     name: "password",
     label: "Password",
     type: "password",
     value: password,
     onChange: handleOnChange
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_2__["Button"], {
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_3__["Button"], {
     type: "submit",
     variant: "outlined"
   }, method === 'login' ? 'Login' : 'Sign Up'), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, method === 'login' ? "Don't have an account? " : 'Already have an account? ', /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+    className: classes.method,
     onClick: function onClick() {
       setMethod(hash[method]);
-      history.push("/".concat(hash[method]));
-    },
-    className: classes.method
-  }, method === 'login' ? 'Sign Up' : 'Login'))));
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+    to: "/".concat(hash[method])
+  }, method === 'login' ? 'Sign Up' : 'Login')))));
 };
 /* harmony default export */ __webpack_exports__["default"] = (AuthForm);
 
@@ -338,8 +345,26 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
+var useStyles = Object(_material_ui_core__WEBPACK_IMPORTED_MODULE_2__["makeStyles"])(function (theme) {
+  return {
+    home: {
+      backgroundColor: 'lightblue',
+      display: 'flex',
+      flexDirection: 'column'
+    },
+    header: {
+      height: '10vh',
+      background: 'lightgray',
+      display: 'flex',
+      justifyContent: 'space-evenly',
+      alignItems: 'center',
+      position: 'sticky'
+    }
+  };
+});
 var Home = function Home(_ref) {
   var history = _ref.history;
+  var classes = useStyles();
 
   var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])({}),
       _useState2 = _slicedToArray(_useState, 2),
@@ -379,16 +404,13 @@ var Home = function Home(_ref) {
     }))();
   }, []);
   return user.id ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    id: "home"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_2__["Typography"], {
-    gutterBottom: true,
-    align: "center",
-    variant: "h1"
-  }, "Welcome ", user.username), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components__WEBPACK_IMPORTED_MODULE_3__["Movies"], null)) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_2__["Typography"], {
-    gutterBottom: true,
-    align: "center",
-    variant: "h1"
-  }, "Loading...");
+    id: "home",
+    className: classes.home
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("header", {
+    className: classes.header
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Nominations"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Search"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Logout")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components__WEBPACK_IMPORTED_MODULE_3__["Movies"], {
+    user: user
+  })) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Loading...");
 };
 /* harmony default export */ __webpack_exports__["default"] = (Home);
 
@@ -434,25 +456,28 @@ var useStyles = Object(_material_ui_core__WEBPACK_IMPORTED_MODULE_2__["makeStyle
     movies: {
       height: '100vh',
       display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center'
+      flexDirection: 'column'
     },
     form: {
-      width: '35%',
       display: 'flex',
       flexDirection: 'column',
-      alignItems: 'center'
+      justifyContent: 'space-evenly',
+      alignItems: 'center',
+      margin: '1% 0'
     },
     allMovies: {
-      display: 'flex',
-      flexWrap: 'wrap',
-      justifyContent: 'space-evenly' // alignItems: 'space-evenly',
-
+      height: '100vh',
+      display: 'grid',
+      gridTemplateColumns: 'auto auto auto auto',
+      gridTemplateRows: 'auto',
+      justifyContent: 'space-evenly',
+      gap: '2% 2%'
     }
   };
 });
 
-var Movies = function Movies(props) {
+var Movies = function Movies(_ref) {
+  var user = _ref.user;
   var classes = useStyles();
 
   var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(''),
@@ -495,7 +520,7 @@ var Movies = function Movies(props) {
   };
 
   var handleOnSubmit = /*#__PURE__*/function () {
-    var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(event) {
+    var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(event) {
       var _yield$axios$get, fetchedMovies;
 
       return regeneratorRuntime.wrap(function _callee$(_context) {
@@ -531,7 +556,7 @@ var Movies = function Movies(props) {
     }));
 
     return function handleOnSubmit(_x) {
-      return _ref.apply(this, arguments);
+      return _ref2.apply(this, arguments);
     };
   }();
 
@@ -579,7 +604,8 @@ var Movies = function Movies(props) {
   }, movies.map(function (movie) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components__WEBPACK_IMPORTED_MODULE_3__["SingleMovie"], {
       key: movie.imdbID,
-      movie: movie
+      movie: movie,
+      user: user
     });
   })));
 };
@@ -600,31 +626,122 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @material-ui/core */ "./node_modules/@material-ui/core/esm/index.js");
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e2) { throw _e2; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e3) { didErr = true; err = _e3; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
 
 
 var useStyles = Object(_material_ui_core__WEBPACK_IMPORTED_MODULE_1__["makeStyles"])(function (theme) {
   return {
-    singleMovie: {
+    movieCard: {
       display: 'flex',
       flexDirection: 'column',
       justifyContent: 'space-evenly',
+      alignItems: 'center',
+      width: '200px',
+      height: '250px',
+      margin: '1%',
+      padding: '5%',
+      '&:hover #image': {
+        opacity: '0.3'
+      },
+      '&:hover #title': {
+        opacity: '0.3'
+      },
+      '&:hover #year': {
+        opacity: '0.3'
+      },
+      '&:hover #overlay': {
+        opacity: '1'
+      }
+    },
+    image: {
+      height: '80%',
+      width: '80%',
+      borderRadius: '5%',
+      transition: '.5s ease',
+      opacity: '1',
+      backfaceVisibility: 'hidden',
+      boxShadow: '0px 3px 5px -1px rgba(0,0,0,0.2), 0px 5px 8px 0px rgba(0,0,0,0.14), 0px 1px 14px 0px rgba(0,0,0,0.12)'
+    },
+    text: {
+      fontFamily: 'Optima',
+      transition: '.5s ease',
+      opacity: '1'
+    },
+    overlay: {
+      height: 'inherit',
+      width: 'inherit',
+      position: 'absolute',
+      transition: '.5s ease',
+      opacity: '0',
+      display: 'flex',
+      justifyContent: 'center',
       alignItems: 'center'
+    },
+    nominate: {
+      zIndex: '1',
+      color: 'black'
     }
   };
 });
 
 var SingleMovie = function SingleMovie(_ref) {
-  var movie = _ref.movie;
+  var movie = _ref.movie,
+      user = _ref.user;
   var classes = useStyles();
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    id: "single-movie",
-    className: classes.singleMovie
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_1__["Typography"], {
-    gutterBottom: true,
-    variant: "h1"
-  }, movie.Title), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_1__["Typography"], {
-    gutterBottom: true,
-    variant: "caption"
+  var currentNominations = {};
+
+  var _iterator = _createForOfIteratorHelper(user.nominations),
+      _step;
+
+  try {
+    for (_iterator.s(); !(_step = _iterator.n()).done;) {
+      var movieId = _step.value;
+      currentNominations[movieId] = true;
+    }
+  } catch (err) {
+    _iterator.e(err);
+  } finally {
+    _iterator.f();
+  }
+
+  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(currentNominations),
+      _useState2 = _slicedToArray(_useState, 2),
+      nominations = _useState2[0],
+      setNominations = _useState2[1];
+
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_1__["Card"], {
+    elevation: 5,
+    className: classes.movieCard
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    id: "overlay",
+    className: classes.overlay
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_1__["Button"], {
+    className: classes.nominate
+  }, "Nominate")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_1__["Typography"], {
+    id: "title",
+    component: "h1",
+    className: classes.text
+  }, movie.Title), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+    id: "image",
+    src: movie.Poster === 'N/A' ? '/default.jpg' : movie.Poster,
+    className: classes.image
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_1__["Typography"], {
+    id: "year",
+    component: "span",
+    className: classes.text
   }, movie.Year));
 };
 

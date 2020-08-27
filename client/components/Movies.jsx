@@ -15,25 +15,27 @@ const useStyles = makeStyles(theme => ({
     height: '100vh',
     display: 'flex',
     flexDirection: 'column',
-    alignItems: 'center',
   },
 
   form: {
-    width: '35%',
     display: 'flex',
     flexDirection: 'column',
+    justifyContent: 'space-evenly',
     alignItems: 'center',
+    margin: '1% 0',
   },
 
   allMovies: {
-    display: 'flex',
-    flexWrap: 'wrap',
+    height: '100vh',
+    display: 'grid',
+    gridTemplateColumns: 'auto auto auto auto',
+    gridTemplateRows: 'auto',
     justifyContent: 'space-evenly',
-    // alignItems: 'space-evenly',
+    gap: '2% 2%',
   },
 }))
 
-const Movies = props => {
+const Movies = ({ user }) => {
   const classes = useStyles()
   const [movieTitle, setMovieTitle] = useState('')
   const [movieYear, setMovieYear] = useState('')
@@ -114,7 +116,7 @@ const Movies = props => {
       </form>
       <div id="all-movies" className={classes.allMovies}>
         {movies.map(movie => (
-          <SingleMovie key={movie.imdbID} movie={movie} />
+          <SingleMovie key={movie.imdbID} movie={movie} user={user} />
         ))}
       </div>
     </div>

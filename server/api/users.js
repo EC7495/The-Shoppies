@@ -1,12 +1,17 @@
 const router = require('express').Router()
 
-// add movie nomination to nomination's list for logged in user
+// nominate or remove nomination for movie
 router.put('/nominate-movie', async (req, res, next) => {
   try {
     const movieId = req.body.movieId
     const user = req.user
+    const remove = req.query.remove
 
-    if (user.nominations < 5) {
+    if (remove) {
+      const nominations = user.nominations.filter(id => movieId !== id)
+      await user.update({ nominations })
+      res.status(202).json(user)
+    } else if (user.nominations < 5) {
       await user.update({
         nominations: [...user.nominations, movieId],
       })

@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import axios from 'axios'
 import { TextField, Button, Snackbar, makeStyles } from '@material-ui/core'
 
 const useStyles = makeStyles(theme => ({
-  login: {
-    height: '100vh',
+  form: {
+    height: '45vh',
+    width: '65vw',
     display: 'flex',
     flexDirection: 'column',
-    justifyContent: 'center',
+    justifyContent: 'space-evenly',
     alignItems: 'center',
   },
 
@@ -17,6 +19,13 @@ const useStyles = makeStyles(theme => ({
       textDecoration: 'underline',
       color: 'lightblue',
     },
+  },
+
+  auth: {
+    height: '100vh',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 }))
 
@@ -57,7 +66,7 @@ export const AuthForm = ({ history, location }) => {
   const handleOnSubmit = async event => {
     event.preventDefault()
     try {
-      const { data: user } = await axios.post(`/auth/${method}`, {
+      await axios.post(`/auth/${method}`, {
         username,
         password,
       })
@@ -70,7 +79,7 @@ export const AuthForm = ({ history, location }) => {
   }
 
   return (
-    <div id="auth-form">
+    <div id="auth-form" className={classes.auth}>
       <Snackbar
         message={
           method === 'login'
@@ -82,7 +91,7 @@ export const AuthForm = ({ history, location }) => {
         anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
         autoHideDuration={3000}
       />
-      <form onSubmit={handleOnSubmit} className={classes.login}>
+      <form onSubmit={handleOnSubmit} className={classes.form}>
         <TextField
           required
           name="username"
@@ -106,13 +115,14 @@ export const AuthForm = ({ history, location }) => {
             ? "Don't have an account? "
             : 'Already have an account? '}
           <span
+            className={classes.method}
             onClick={() => {
               setMethod(hash[method])
-              history.push(`/${hash[method]}`)
             }}
-            className={classes.method}
           >
-            {method === 'login' ? 'Sign Up' : 'Login'}
+            <Link to={`/${hash[method]}`}>
+              {method === 'login' ? 'Sign Up' : 'Login'}
+            </Link>
           </span>
         </span>
       </form>

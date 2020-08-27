@@ -8,3 +8,11 @@ html,
 * {
   font-family: 'Optima';
 }
+
+a {
+  text-decoration-line: none;
+}
+
+a:visited {
+  color: inherit;
+}

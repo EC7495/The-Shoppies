@@ -1,9 +1,27 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
-import { Typography } from '@material-ui/core'
+import { makeStyles } from '@material-ui/core'
 import { Movies } from '../components'
 
+const useStyles = makeStyles(theme => ({
+  home: {
+    backgroundColor: 'lightblue',
+    display: 'flex',
+    flexDirection: 'column',
+  },
+
+  header: {
+    height: '10vh',
+    background: 'lightgray',
+    display: 'flex',
+    justifyContent: 'space-evenly',
+    alignItems: 'center',
+    position: 'sticky',
+  },
+}))
+
 export const Home = ({ history }) => {
+  const classes = useStyles()
   const [user, setUser] = useState({})
 
   useEffect(() => {
@@ -18,16 +36,16 @@ export const Home = ({ history }) => {
   }, [])
 
   return user.id ? (
-    <div id="home">
-      <Typography gutterBottom align="center" variant="h1">
-        Welcome {user.username}
-      </Typography>
-      <Movies />
+    <div id="home" className={classes.home}>
+      <header className={classes.header}>
+        <span>Nominations</span>
+        <span>Search</span>
+        <span>Logout</span>
+      </header>
+      <Movies user={user} />
     </div>
   ) : (
-    <Typography gutterBottom align="center" variant="h1">
-      Loading...
-    </Typography>
+    <h1>Loading...</h1>
   )
 }
 
