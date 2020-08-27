@@ -1,20 +1,33 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
+import { Typography } from '@material-ui/core'
+import { Movies } from '../components'
 
-export const Home = props => {
+export const Home = ({ history }) => {
   const [user, setUser] = useState({})
 
   useEffect(() => {
     !(async () => {
-      const { data: fetchedUser } = await axios.get('/auth/me')
-      fetchedUser.id ? setUser(fetchedUser) : props.history.push('/login')
-    })
+      try {
+        const { data: fetchedUser } = await axios.get('/auth/me')
+        setUser(fetchedUser)
+      } catch (error) {
+        history.push('/login')
+      }
+    })()
   }, [])
 
-  return (
+  return user.id ? (
     <div id="home">
-      <h1>Welcome {user.id ? user.username : ''}</h1>
+      <Typography gutterBottom align="center" variant="h1">
+        Welcome {user.username}
+      </Typography>
+      <Movies />
     </div>
+  ) : (
+    <Typography gutterBottom align="center" variant="h1">
+      Loading...
+    </Typography>
   )
 }
 

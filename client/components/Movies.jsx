@@ -8,6 +8,7 @@ import {
   Button,
   makeStyles,
 } from '@material-ui/core'
+import { SingleMovie } from '../components'
 
 const useStyles = makeStyles(theme => ({
   movies: {
@@ -22,6 +23,13 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
+  },
+
+  allMovies: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    justifyContent: 'space-evenly',
+    // alignItems: 'space-evenly',
   },
 }))
 
@@ -49,17 +57,21 @@ const Movies = props => {
   }
 
   const handleOnSubmit = async event => {
-    event.preventDefault()
-    setMovieTitle('')
-    setMovieYear('')
-    setMovieType('')
-    const {
-      data: { Search: fetchedMovies },
-    } = await axios.get(
-      `/api/movies/search-movies/?title=${movieTitle}&year=${movieYear}&type=${movieType}`
-    )
+    try {
+      event.preventDefault()
+      setMovieTitle('')
+      setMovieYear('')
+      setMovieType('')
+      const {
+        data: { Search: fetchedMovies },
+      } = await axios.get(
+        `/api/movies/search-movies/?title=${movieTitle}&year=${movieYear}&type=${movieType}`
+      )
 
-    setMovies(fetchedMovies)
+      setMovies(fetchedMovies)
+    } catch (error) {
+      return
+    }
   }
 
   return (
@@ -99,13 +111,12 @@ const Movies = props => {
         <Button type="submit" variant="outlined">
           Enter
         </Button>
-        {movies.map(movie => (
-          <div key={movie.imdbID}>
-            <h1>{movie.Title}</h1>
-            <p>{movie.Year}</p>
-          </div>
-        ))}
       </form>
+      <div id="all-movies" className={classes.allMovies}>
+        {movies.map(movie => (
+          <SingleMovie key={movie.imdbID} movie={movie} />
+        ))}
+      </div>
     </div>
   )
 }

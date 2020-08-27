@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import { TextField, Button, Snackbar, makeStyles } from '@material-ui/core'
 
@@ -20,16 +20,26 @@ const useStyles = makeStyles(theme => ({
   },
 }))
 
-const hash = { login: 'signup', signup: 'login' }
-
-export const AuthForm = props => {
+export const AuthForm = ({ history, location }) => {
   const classes = useStyles()
+  const hash = { login: 'signup', signup: 'login' }
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [loginError, setLoginError] = useState(false)
   const [method, setMethod] = useState(
-    props.location.pathname.substring(1) === 'signup' ? 'signup' : 'login'
+    location.pathname.substring(1) === 'signup' ? 'signup' : 'login'
   )
+
+  useEffect(() => {
+    !(async () => {
+      try {
+        const { data: user } = await axios.get('/auth/me')
+        if (user.id) history.push('/home')
+      } catch (error) {
+        return
+      }
+    })()
+  }, [])
 
   const handleOnChange = event => {
     switch (event.target.name) {
@@ -47,13 +57,13 @@ export const AuthForm = props => {
   const handleOnSubmit = async event => {
     event.preventDefault()
     try {
-      await axios.post(`/auth/${method}`, {
+      const { data: user } = await axios.post(`/auth/${method}`, {
         username,
         password,
       })
       setUsername('')
       setPassword('')
-      props.history.push('/')
+      history.push('/home')
     } catch (error) {
       setLoginError(true)
     }
@@ -74,12 +84,14 @@ export const AuthForm = props => {
       />
       <form onSubmit={handleOnSubmit} className={classes.login}>
         <TextField
+          required
           name="username"
           label="Username"
           value={username}
           onChange={handleOnChange}
         />
         <TextField
+          required
           name="password"
           label="Password"
           type="password"
@@ -96,7 +108,7 @@ export const AuthForm = props => {
           <span
             onClick={() => {
               setMethod(hash[method])
-              props.history.push(`/${hash[method]}`)
+              history.push(`/${hash[method]}`)
             }}
             className={classes.method}
           >
