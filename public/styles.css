@@ -1,7 +1,6 @@
 body,
 html,
-#app,
-#index {
+#app {
   height: 100vh;
   margin: 0;
 }

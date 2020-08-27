@@ -6,7 +6,7 @@ const axios = require('axios')
 // search movies by title, year, and type
 router.get('/search-movies', async (req, res, next) => {
   try {
-    const { title, year, type, page } = { ...req.query }
+    const { title, year, type, page } = req.query
     const { data: movies } = await axios.get(
       `http://www.omdbapi.com/?apikey=${process.env.API_KEY}&s=${title}${
         year ? `&y=${year}` : ''

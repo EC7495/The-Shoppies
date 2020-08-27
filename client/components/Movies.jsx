@@ -25,7 +25,7 @@ const useStyles = makeStyles(theme => ({
   },
 }))
 
-const Movies = () => {
+const Movies = props => {
   const classes = useStyles()
   const [movieTitle, setMovieTitle] = useState('')
   const [movieYear, setMovieYear] = useState('')
