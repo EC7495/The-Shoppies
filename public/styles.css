@@ -1,0 +1,19 @@
+body,
+html,
+#app {
+  height: 100vh;
+  margin: 0;
+}
+
+* {
+  font-family: 'Optima';
+}
+
+a {
+  text-decoration-line: none;
+  color: black;
+}
+
+a:visited {
+  color: inherit;
+}
