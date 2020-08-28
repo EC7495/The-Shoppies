@@ -12,9 +12,9 @@ const MovieSearch = ({ history, location }) => {
     !(async () => {
       try {
         const { data: fetchedUser } = await axios.get('/auth/me')
-        user.id ? setUser(fetchedUser) : history.push('/login')
+        fetchedUser.id ? setUser(fetchedUser) : history.push('/login')
       } catch (error) {
-        return
+        history.push('/login')
       }
     })()
   }, [])

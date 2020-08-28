@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import { Snackbar } from '@material-ui/core'
 import axios from 'axios'
-import Header from './Header'
+import { Header, SingleNomination } from '../components'
+import { nominationsStyles } from './styles'
 
 const Nominations = ({ history, location }) => {
+  const classes = nominationsStyles()
   const [userNominations, setUserNominations] = useState([])
   const [fetchingError, setFetchingError] = useState(false)
 
@@ -22,7 +24,7 @@ const Nominations = ({ history, location }) => {
   }, [])
 
   return userNominations.length ? (
-    <div id="nominations">
+    <div id="nominations" className={classes.nominations}>
       <Snackbar
         message="Oops. There was an error retrieving your nominations. Try again!"
         open={fetchingError}
@@ -31,9 +33,11 @@ const Nominations = ({ history, location }) => {
         autoHideDuration={3000}
       />
       <Header history={history} location={location} />
-      {userNominations.map(nom => (
-        <h1 key={nom.imdbID}>{nom.Title}</h1>
-      ))}
+      <div className={classes.mappedNominations}>
+        {userNominations.map(nomination => (
+          <SingleNomination key={nomination.imdbID} nomination={nomination} />
+        ))}
+      </div>
     </div>
   ) : (
     <div>

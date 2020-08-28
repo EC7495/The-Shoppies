@@ -70,14 +70,14 @@ export const AuthForm = ({ history, location }) => {
         <TextField
           required
           name="username"
-          label="Username"
+          label={method === 'login' ? 'Username' : 'Create username'}
           value={username}
           onChange={handleOnChange}
         />
         <TextField
           required
           name="password"
-          label="Password"
+          label={method === 'login' ? 'Password' : 'Create password'}
           type="password"
           value={password}
           onChange={handleOnChange}
