@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import SingleMovie from './SingleMovie'
 import { searchResultsStyles } from './styles'
 

@@ -2,7 +2,7 @@ const router = require('express').Router()
 const User = require('../db/models/User')
 
 router.get('/me', (req, res) => {
-  req.user ? res.json(req.user) : res.sendStatus(401)
+  req.user ? res.json(req.user) : res.status(204).json({})
 })
 
 router.post('/login', async (req, res, next) => {
