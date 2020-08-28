@@ -6,41 +6,14 @@ import {
   Select,
   MenuItem,
   Button,
-  makeStyles,
 } from '@material-ui/core'
-import { SingleMovie } from '../components'
+import { searchFormStyles } from './styles'
 
-const useStyles = makeStyles(theme => ({
-  movies: {
-    height: '100vh',
-    display: 'flex',
-    flexDirection: 'column',
-  },
-
-  form: {
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'space-evenly',
-    alignItems: 'center',
-    margin: '1% 0',
-  },
-
-  allMovies: {
-    height: '100vh',
-    display: 'grid',
-    gridTemplateColumns: 'auto auto auto auto',
-    gridTemplateRows: 'auto',
-    justifyContent: 'space-evenly',
-    gap: '2% 2%',
-  },
-}))
-
-const Movies = ({ user }) => {
-  const classes = useStyles()
+const SearchForm = ({ setMovies }) => {
+  const classes = searchFormStyles()
   const [movieTitle, setMovieTitle] = useState('')
   const [movieYear, setMovieYear] = useState('')
   const [movieType, setMovieType] = useState('')
-  const [movies, setMovies] = useState([])
 
   const handleOnChange = event => {
     switch (event.target.name) {
@@ -77,7 +50,7 @@ const Movies = ({ user }) => {
   }
 
   return (
-    <div id="movies" className={classes.movies}>
+    <div id="search-form">
       <form onSubmit={handleOnSubmit} className={classes.form}>
         <TextField
           required
@@ -111,16 +84,11 @@ const Movies = ({ user }) => {
           </Select>
         </div>
         <Button type="submit" variant="outlined">
-          Enter
+          Search
         </Button>
       </form>
-      <div id="all-movies" className={classes.allMovies}>
-        {movies.map(movie => (
-          <SingleMovie key={movie.imdbID} movie={movie} user={user} />
-        ))}
-      </div>
     </div>
   )
 }
 
-export default Movies
+export default SearchForm

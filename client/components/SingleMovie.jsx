@@ -1,115 +1,89 @@
 import React, { useState } from 'react'
 import axios from 'axios'
-import { Typography, Card, Button, makeStyles } from '@material-ui/core'
-
-const useStyles = makeStyles(theme => ({
-  movieCard: {
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'space-evenly',
-    alignItems: 'center',
-    width: '200px',
-    height: '250px',
-    margin: '1%',
-    padding: '5%',
-    '&:hover #image': {
-      opacity: '0.3',
-    },
-
-    '&:hover #title': {
-      opacity: '0.3',
-    },
-
-    '&:hover #year': {
-      opacity: '0.3',
-    },
-
-    '&:hover #overlay': {
-      opacity: '1',
-    },
-  },
-
-  image: {
-    height: '80%',
-    width: '80%',
-    borderRadius: '5%',
-    transition: '.5s ease',
-    opacity: '1',
-    backfaceVisibility: 'hidden',
-    boxShadow:
-      '0px 3px 5px -1px rgba(0,0,0,0.2), 0px 5px 8px 0px rgba(0,0,0,0.14), 0px 1px 14px 0px rgba(0,0,0,0.12)',
-  },
-
-  text: {
-    fontFamily: 'Optima',
-    transition: '.5s ease',
-    opacity: '1',
-  },
-
-  overlay: {
-    height: 'inherit',
-    width: 'inherit',
-    position: 'absolute',
-    transition: '.5s ease',
-    opacity: '0',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-
-  nominate: {
-    zIndex: '1',
-    color: 'black',
-  },
-}))
+import { Typography, Card, Button, Snackbar } from '@material-ui/core'
+import { singleMovieStyles } from './styles'
 
 const SingleMovie = ({ movie, user }) => {
-  const classes = useStyles()
-  const currentNominations = {}
+  const classes = singleMovieStyles()
+  const [nominations, setNominations] = useState(user.nominations)
+  const [nominationError, setNominationError] = useState(false)
+  const [nominationSuccess, setNominationSuccess] = useState(false)
+  const [nominationRemoved, setNominationRemoved] = useState(false)
 
-  for (const movieId of user.nominations) {
-    currentNominations[movieId] = true
-  }
-
-  const [nominations, setNominations] = useState(currentNominations)
-
-  const nominateMovie = movieId => {
+  const handleOnClick = async (movieId, remove) => {
     try {
-      await axios.put('/api/users/nominate-movie', { movieId })
-      setNominations({...nominations, [movieId]: true})
-      alert('nominated successully')
+      if (!remove && nominations.length === 5) return setNominationError(true)
+
+      await axios.put(
+        `/api/users/nominate-movie${remove ? `/?remove=${true}` : ''}`,
+        { movieId }
+      )
+
+      if (remove) {
+        setNominations(nominations.filter(id => id !== movieId))
+        setNominationRemoved(true)
+      } else {
+        setNominations([...nominations, movieId])
+        setNominationSuccess(true)
+      }
     } catch (error) {
-      return
+      setNominationError(true)
     }
   }
 
   return (
-    <Card elevation={5} className={classes.movieCard}>
-      <div
-        id="overlay"
-        className={classes.overlay}
-        style={{ opacity: `${nominations[movie.imdbID] ? 1 : 0}` }}
-      >
-        <Button
-          disabled={nominations[movie.imdbId]}
-          className={classes.nominate}
-          onClick={() => nominateMovie(movie.imdbID)}
-        >
-          {nominations[movie.imdbId] ? 'Already nominated!' : 'Nominate'}
-        </Button>
-      </div>
-      <Typography id="title" component="h1" className={classes.text}>
-        {movie.Title}
-      </Typography>
-      <img
-        id="image"
-        src={movie.Poster === 'N/A' ? '/default.jpg' : movie.Poster}
-        className={classes.image}
-      ></img>
-      <Typography id="year" component="span" className={classes.text}>
-        {movie.Year}
-      </Typography>
-    </Card>
+    <div id="singe-movie">
+      <Snackbar
+        message={
+          nominations.length >= 5
+            ? 'Max nominations reached! If you want to nominate another movie, remove one of your current nominations first.'
+            : 'Oops, there was an error while trying to nominate this movie. Try again!'
+        }
+        open={nominationError || nominations.length >= 5}
+        onClose={() => setNominationError(false)}
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+        autoHideDuration={3000}
+      />
+      <Snackbar
+        message={`Success! ${5 - nominations.length}  nominations left.`}
+        open={nominationSuccess}
+        onClose={() => setNominationSuccess(false)}
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+        autoHideDuration={3000}
+      />
+      <Snackbar
+        message={`Nomination removed! ${
+          5 - nominations.length
+        }  nominations left.`}
+        open={nominationRemoved}
+        onClose={() => setNominationRemoved(false)}
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+        autoHideDuration={3000}
+      />
+      <Card elevation={5} className={classes.movieCard}>
+        <div id="overlay" className={classes.overlay}>
+          <Button
+            className={classes.nominate}
+            onClick={() =>
+              handleOnClick(movie.imdbID, nominations.includes(movie.imdbID))
+            }
+          >
+            {nominations.includes(movie.imdbID) ? 'Withdraw vote' : 'Nominate'}
+          </Button>
+        </div>
+        <Typography id="title" component="h1" className={classes.text}>
+          {movie.Title}
+        </Typography>
+        <img
+          id="image"
+          src={movie.Poster === 'N/A' ? '/default.jpg' : movie.Poster}
+          className={classes.image}
+        ></img>
+        <Typography id="year" component="span" className={classes.text}>
+          {movie.Year}
+        </Typography>
+      </Card>
+    </div>
   )
 }
 

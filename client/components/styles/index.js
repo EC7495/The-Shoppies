@@ -1,0 +1,6 @@
+export { default as authFormStyles } from './auth-form'
+export { default as headerStyles } from './header'
+export { default as movieSearchStyles } from './movie-search'
+export { default as searchResultsStyles } from './search-results'
+export { default as singleMovieStyles } from './single-movie'
+export { default as searchFormStyles } from './search-form'

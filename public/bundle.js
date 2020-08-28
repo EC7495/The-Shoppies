@@ -102,6 +102,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @material-ui/core */ "./node_modules/@material-ui/core/esm/index.js");
+/* harmony import */ var _styles__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./styles */ "./client/components/styles/index.js");
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
@@ -122,35 +123,11 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
-var useStyles = Object(_material_ui_core__WEBPACK_IMPORTED_MODULE_3__["makeStyles"])(function (theme) {
-  return {
-    form: {
-      height: '45vh',
-      width: '65vw',
-      display: 'flex',
-      flexDirection: 'column',
-      justifyContent: 'space-evenly',
-      alignItems: 'center'
-    },
-    method: {
-      '&:hover': {
-        cursor: 'pointer',
-        textDecoration: 'underline',
-        color: 'lightblue'
-      }
-    },
-    auth: {
-      height: '100vh',
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center'
-    }
-  };
-});
+
 var AuthForm = function AuthForm(_ref) {
   var history = _ref.history,
       location = _ref.location;
-  var classes = useStyles();
+  var classes = Object(_styles__WEBPACK_IMPORTED_MODULE_4__["authFormStyles"])();
   var hash = {
     login: 'signup',
     signup: 'login'
@@ -191,7 +168,7 @@ var AuthForm = function AuthForm(_ref) {
             case 3:
               _yield$axios$get = _context.sent;
               user = _yield$axios$get.data;
-              if (user.id) history.push('/home');
+              if (user.id) history.push('/search');
               _context.next = 11;
               break;
 
@@ -241,7 +218,7 @@ var AuthForm = function AuthForm(_ref) {
             case 4:
               setUsername('');
               setPassword('');
-              history.push('/home');
+              history.push('/search');
               _context2.next = 12;
               break;
 
@@ -309,22 +286,22 @@ var AuthForm = function AuthForm(_ref) {
 
 /***/ }),
 
-/***/ "./client/components/Home.jsx":
-/*!************************************!*\
-  !*** ./client/components/Home.jsx ***!
-  \************************************/
-/*! exports provided: Home, default */
+/***/ "./client/components/Header.jsx":
+/*!**************************************!*\
+  !*** ./client/components/Header.jsx ***!
+  \**************************************/
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Home", function() { return Home; });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @material-ui/core */ "./node_modules/@material-ui/core/esm/index.js");
-/* harmony import */ var _components__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components */ "./client/components/index.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @material-ui/core */ "./node_modules/@material-ui/core/esm/index.js");
+/* harmony import */ var _styles__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./styles */ "./client/components/styles/index.js");
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
@@ -345,31 +322,133 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
-var useStyles = Object(_material_ui_core__WEBPACK_IMPORTED_MODULE_2__["makeStyles"])(function (theme) {
-  return {
-    home: {
-      backgroundColor: 'lightblue',
-      display: 'flex',
-      flexDirection: 'column'
+
+
+var Header = function Header(_ref) {
+  var history = _ref.history,
+      location = _ref.location;
+  var classes = Object(_styles__WEBPACK_IMPORTED_MODULE_4__["headerStyles"])();
+
+  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(false),
+      _useState2 = _slicedToArray(_useState, 2),
+      logoutError = _useState2[0],
+      setLogoutError = _useState2[1];
+
+  var handleOnClick = /*#__PURE__*/function () {
+    var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+      return regeneratorRuntime.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              _context.prev = 0;
+              _context.next = 3;
+              return axios__WEBPACK_IMPORTED_MODULE_2___default.a.post('/auth/logout');
+
+            case 3:
+              history.push('/login');
+              _context.next = 9;
+              break;
+
+            case 6:
+              _context.prev = 6;
+              _context.t0 = _context["catch"](0);
+              setLogoutError(true);
+
+            case 9:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee, null, [[0, 6]]);
+    }));
+
+    return function handleOnClick() {
+      return _ref2.apply(this, arguments);
+    };
+  }();
+
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    id: "header"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_3__["Snackbar"], {
+    message: "Oops, an error ocurred. Try again.",
+    open: logoutError,
+    onClose: function onClose() {
+      return setLogoutError(false);
     },
-    header: {
-      height: '10vh',
-      background: 'lightgray',
-      display: 'flex',
-      justifyContent: 'space-evenly',
-      alignItems: 'center',
-      position: 'sticky'
-    }
-  };
-});
-var Home = function Home(_ref) {
-  var history = _ref.history;
-  var classes = useStyles();
+    anchorOrigin: {
+      vertical: 'top',
+      horizontal: 'center'
+    },
+    autoHideDuration: 3000
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("header", {
+    className: classes.header
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+    to: "/my-nominations",
+    className: classes.headerItem
+  }, "Nominations"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+    to: "/search",
+    className: classes.headerItem
+  }, "Search"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+    to: "".concat(location.pathname),
+    onClick: handleOnClick,
+    className: classes.headerItem
+  }, "Logout")));
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Header);
+
+/***/ }),
+
+/***/ "./client/components/MovieSearch.jsx":
+/*!*******************************************!*\
+  !*** ./client/components/MovieSearch.jsx ***!
+  \*******************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _components__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components */ "./client/components/index.js");
+/* harmony import */ var _styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./styles */ "./client/components/styles/index.js");
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+
+
+
+
+var MovieSearch = function MovieSearch(_ref) {
+  var history = _ref.history,
+      location = _ref.location;
+  var classes = Object(_styles__WEBPACK_IMPORTED_MODULE_3__["movieSearchStyles"])();
 
   var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])({}),
       _useState2 = _slicedToArray(_useState, 2),
       user = _useState2[0],
       setUser = _useState2[1];
+
+  var _useState3 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])([]),
+      _useState4 = _slicedToArray(_useState3, 2),
+      movies = _useState4[0],
+      setMovies = _useState4[1];
 
   Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
     !_asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
@@ -404,22 +483,27 @@ var Home = function Home(_ref) {
     }))();
   }, []);
   return user.id ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    id: "home",
-    className: classes.home
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("header", {
-    className: classes.header
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Nominations"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Search"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Logout")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components__WEBPACK_IMPORTED_MODULE_3__["Movies"], {
-    user: user
+    id: "movie-search",
+    className: classes.movieSearch
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components__WEBPACK_IMPORTED_MODULE_2__["Header"], {
+    location: location,
+    history: history
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components__WEBPACK_IMPORTED_MODULE_2__["SearchForm"], {
+    setMovies: setMovies
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components__WEBPACK_IMPORTED_MODULE_2__["SearchResults"], {
+    user: user,
+    movies: movies
   })) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Loading...");
 };
-/* harmony default export */ __webpack_exports__["default"] = (Home);
+
+/* harmony default export */ __webpack_exports__["default"] = (MovieSearch);
 
 /***/ }),
 
-/***/ "./client/components/Movies.jsx":
-/*!**************************************!*\
-  !*** ./client/components/Movies.jsx ***!
-  \**************************************/
+/***/ "./client/components/SearchForm.jsx":
+/*!******************************************!*\
+  !*** ./client/components/SearchForm.jsx ***!
+  \******************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -430,7 +514,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @material-ui/core */ "./node_modules/@material-ui/core/esm/index.js");
-/* harmony import */ var _components__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components */ "./client/components/index.js");
+/* harmony import */ var _styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./styles */ "./client/components/styles/index.js");
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
@@ -451,34 +535,10 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
-var useStyles = Object(_material_ui_core__WEBPACK_IMPORTED_MODULE_2__["makeStyles"])(function (theme) {
-  return {
-    movies: {
-      height: '100vh',
-      display: 'flex',
-      flexDirection: 'column'
-    },
-    form: {
-      display: 'flex',
-      flexDirection: 'column',
-      justifyContent: 'space-evenly',
-      alignItems: 'center',
-      margin: '1% 0'
-    },
-    allMovies: {
-      height: '100vh',
-      display: 'grid',
-      gridTemplateColumns: 'auto auto auto auto',
-      gridTemplateRows: 'auto',
-      justifyContent: 'space-evenly',
-      gap: '2% 2%'
-    }
-  };
-});
 
-var Movies = function Movies(_ref) {
-  var user = _ref.user;
-  var classes = useStyles();
+var SearchForm = function SearchForm(_ref) {
+  var setMovies = _ref.setMovies;
+  var classes = Object(_styles__WEBPACK_IMPORTED_MODULE_3__["searchFormStyles"])();
 
   var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(''),
       _useState2 = _slicedToArray(_useState, 2),
@@ -494,11 +554,6 @@ var Movies = function Movies(_ref) {
       _useState6 = _slicedToArray(_useState5, 2),
       movieType = _useState6[0],
       setMovieType = _useState6[1];
-
-  var _useState7 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])([]),
-      _useState8 = _slicedToArray(_useState7, 2),
-      movies = _useState8[0],
-      setMovies = _useState8[1];
 
   var handleOnChange = function handleOnChange(event) {
     switch (event.target.name) {
@@ -561,8 +616,7 @@ var Movies = function Movies(_ref) {
   }();
 
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    id: "movies",
-    className: classes.movies
+    id: "search-form"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
     onSubmit: handleOnSubmit,
     className: classes.form
@@ -598,19 +652,50 @@ var Movies = function Movies(_ref) {
   }, "Episode"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_2__["Button"], {
     type: "submit",
     variant: "outlined"
-  }, "Enter")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  }, "Search")));
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (SearchForm);
+
+/***/ }),
+
+/***/ "./client/components/SearchResults.jsx":
+/*!*********************************************!*\
+  !*** ./client/components/SearchResults.jsx ***!
+  \*********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _SingleMovie__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./SingleMovie */ "./client/components/SingleMovie.jsx");
+/* harmony import */ var _styles__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./styles */ "./client/components/styles/index.js");
+
+
+
+
+var SearchResults = function SearchResults(_ref) {
+  var user = _ref.user,
+      movies = _ref.movies;
+  var classes = Object(_styles__WEBPACK_IMPORTED_MODULE_2__["searchResultsStyles"])();
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    id: "search-results",
+    className: classes.searchResults
+  }, movies.length ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     id: "all-movies",
     className: classes.allMovies
   }, movies.map(function (movie) {
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components__WEBPACK_IMPORTED_MODULE_3__["SingleMovie"], {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_SingleMovie__WEBPACK_IMPORTED_MODULE_1__["default"], {
       key: movie.imdbID,
       movie: movie,
       user: user
     });
-  })));
+  })) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Search for your favorite movies!"));
 };
 
-/* harmony default export */ __webpack_exports__["default"] = (Movies);
+/* harmony default export */ __webpack_exports__["default"] = (SearchResults);
 
 /***/ }),
 
@@ -625,24 +710,417 @@ var Movies = function Movies(_ref) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @material-ui/core */ "./node_modules/@material-ui/core/esm/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @material-ui/core */ "./node_modules/@material-ui/core/esm/index.js");
+/* harmony import */ var _styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./styles */ "./client/components/styles/index.js");
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-
-function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
-
-function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
-
-function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e2) { throw _e2; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e3) { didErr = true; err = _e3; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
 
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
 
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
+function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
-var useStyles = Object(_material_ui_core__WEBPACK_IMPORTED_MODULE_1__["makeStyles"])(function (theme) {
+
+
+
+
+var SingleMovie = function SingleMovie(_ref) {
+  var movie = _ref.movie,
+      user = _ref.user;
+  var classes = Object(_styles__WEBPACK_IMPORTED_MODULE_3__["singleMovieStyles"])();
+
+  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(user.nominations),
+      _useState2 = _slicedToArray(_useState, 2),
+      nominations = _useState2[0],
+      setNominations = _useState2[1];
+
+  var _useState3 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(false),
+      _useState4 = _slicedToArray(_useState3, 2),
+      nominationError = _useState4[0],
+      setNominationError = _useState4[1];
+
+  var _useState5 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(false),
+      _useState6 = _slicedToArray(_useState5, 2),
+      nominationSuccess = _useState6[0],
+      setNominationSuccess = _useState6[1];
+
+  var _useState7 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(false),
+      _useState8 = _slicedToArray(_useState7, 2),
+      nominationRemoved = _useState8[0],
+      setNominationRemoved = _useState8[1];
+
+  var handleOnClick = /*#__PURE__*/function () {
+    var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(movieId, remove) {
+      return regeneratorRuntime.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              _context.prev = 0;
+
+              if (!(!remove && nominations.length === 5)) {
+                _context.next = 3;
+                break;
+              }
+
+              return _context.abrupt("return", setNominationError(true));
+
+            case 3:
+              _context.next = 5;
+              return axios__WEBPACK_IMPORTED_MODULE_1___default.a.put("/api/users/nominate-movie".concat(remove ? "/?remove=".concat(true) : ''), {
+                movieId: movieId
+              });
+
+            case 5:
+              if (remove) {
+                setNominations(nominations.filter(function (id) {
+                  return id !== movieId;
+                }));
+                setNominationRemoved(true);
+              } else {
+                setNominations([].concat(_toConsumableArray(nominations), [movieId]));
+                setNominationSuccess(true);
+              }
+
+              _context.next = 11;
+              break;
+
+            case 8:
+              _context.prev = 8;
+              _context.t0 = _context["catch"](0);
+              setNominationError(true);
+
+            case 11:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee, null, [[0, 8]]);
+    }));
+
+    return function handleOnClick(_x, _x2) {
+      return _ref2.apply(this, arguments);
+    };
+  }();
+
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    id: "singe-movie"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_2__["Snackbar"], {
+    message: nominations.length >= 5 ? 'Max nominations reached! If you want to nominate another movie, remove one of your current nominations first.' : 'Oops, there was an error while trying to nominate this movie. Try again!',
+    open: nominationError || nominations.length >= 5,
+    onClose: function onClose() {
+      return setNominationError(false);
+    },
+    anchorOrigin: {
+      vertical: 'top',
+      horizontal: 'center'
+    },
+    autoHideDuration: 3000
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_2__["Snackbar"], {
+    message: "Success! ".concat(5 - nominations.length, "  nominations left."),
+    open: nominationSuccess,
+    onClose: function onClose() {
+      return setNominationSuccess(false);
+    },
+    anchorOrigin: {
+      vertical: 'top',
+      horizontal: 'center'
+    },
+    autoHideDuration: 3000
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_2__["Snackbar"], {
+    message: "Nomination removed! ".concat(5 - nominations.length, "  nominations left."),
+    open: nominationRemoved,
+    onClose: function onClose() {
+      return setNominationRemoved(false);
+    },
+    anchorOrigin: {
+      vertical: 'top',
+      horizontal: 'center'
+    },
+    autoHideDuration: 3000
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_2__["Card"], {
+    elevation: 5,
+    className: classes.movieCard
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    id: "overlay",
+    className: classes.overlay
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_2__["Button"], {
+    className: classes.nominate,
+    onClick: function onClick() {
+      return handleOnClick(movie.imdbID, nominations.includes(movie.imdbID));
+    }
+  }, nominations.includes(movie.imdbID) ? 'Withdraw vote' : 'Nominate')), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_2__["Typography"], {
+    id: "title",
+    component: "h1",
+    className: classes.text
+  }, movie.Title), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+    id: "image",
+    src: movie.Poster === 'N/A' ? '/default.jpg' : movie.Poster,
+    className: classes.image
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_2__["Typography"], {
+    id: "year",
+    component: "span",
+    className: classes.text
+  }, movie.Year)));
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (SingleMovie);
+
+/***/ }),
+
+/***/ "./client/components/index.js":
+/*!************************************!*\
+  !*** ./client/components/index.js ***!
+  \************************************/
+/*! exports provided: SearchResults, AuthForm, MovieSearch, SingleMovie, Header, SearchForm */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _SearchResults__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./SearchResults */ "./client/components/SearchResults.jsx");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SearchResults", function() { return _SearchResults__WEBPACK_IMPORTED_MODULE_0__["default"]; });
+
+/* harmony import */ var _AuthForm__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AuthForm */ "./client/components/AuthForm.jsx");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "AuthForm", function() { return _AuthForm__WEBPACK_IMPORTED_MODULE_1__["default"]; });
+
+/* harmony import */ var _MovieSearch__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./MovieSearch */ "./client/components/MovieSearch.jsx");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MovieSearch", function() { return _MovieSearch__WEBPACK_IMPORTED_MODULE_2__["default"]; });
+
+/* harmony import */ var _SingleMovie__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./SingleMovie */ "./client/components/SingleMovie.jsx");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SingleMovie", function() { return _SingleMovie__WEBPACK_IMPORTED_MODULE_3__["default"]; });
+
+/* harmony import */ var _Header__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Header */ "./client/components/Header.jsx");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Header", function() { return _Header__WEBPACK_IMPORTED_MODULE_4__["default"]; });
+
+/* harmony import */ var _SearchForm__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./SearchForm */ "./client/components/SearchForm.jsx");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SearchForm", function() { return _SearchForm__WEBPACK_IMPORTED_MODULE_5__["default"]; });
+
+
+
+
+
+
+
+
+/***/ }),
+
+/***/ "./client/components/styles/auth-form.js":
+/*!***********************************************!*\
+  !*** ./client/components/styles/auth-form.js ***!
+  \***********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @material-ui/core */ "./node_modules/@material-ui/core/esm/index.js");
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(_material_ui_core__WEBPACK_IMPORTED_MODULE_0__["makeStyles"])(function (theme) {
+  return {
+    form: {
+      height: '45vh',
+      width: '65vw',
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'space-evenly',
+      alignItems: 'center'
+    },
+    method: {
+      '&:hover': {
+        cursor: 'pointer',
+        textDecoration: 'underline',
+        color: 'lightblue'
+      }
+    },
+    auth: {
+      height: '100vh',
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center'
+    }
+  };
+}));
+
+/***/ }),
+
+/***/ "./client/components/styles/header.js":
+/*!********************************************!*\
+  !*** ./client/components/styles/header.js ***!
+  \********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @material-ui/core */ "./node_modules/@material-ui/core/esm/index.js");
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(_material_ui_core__WEBPACK_IMPORTED_MODULE_0__["makeStyles"])(function (theme) {
+  return {
+    header: {
+      height: '10vh',
+      background: 'lightgray',
+      display: 'flex',
+      justifyContent: 'space-evenly',
+      alignItems: 'center',
+      position: 'sticky'
+    },
+    headerItem: {
+      '&:hover': {
+        cursor: 'pointer',
+        textDecoration: 'underline',
+        color: 'white'
+      }
+    }
+  };
+}));
+
+/***/ }),
+
+/***/ "./client/components/styles/index.js":
+/*!*******************************************!*\
+  !*** ./client/components/styles/index.js ***!
+  \*******************************************/
+/*! exports provided: authFormStyles, headerStyles, movieSearchStyles, searchResultsStyles, singleMovieStyles, searchFormStyles */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _auth_form__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./auth-form */ "./client/components/styles/auth-form.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "authFormStyles", function() { return _auth_form__WEBPACK_IMPORTED_MODULE_0__["default"]; });
+
+/* harmony import */ var _header__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./header */ "./client/components/styles/header.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "headerStyles", function() { return _header__WEBPACK_IMPORTED_MODULE_1__["default"]; });
+
+/* harmony import */ var _movie_search__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./movie-search */ "./client/components/styles/movie-search.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "movieSearchStyles", function() { return _movie_search__WEBPACK_IMPORTED_MODULE_2__["default"]; });
+
+/* harmony import */ var _search_results__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./search-results */ "./client/components/styles/search-results.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "searchResultsStyles", function() { return _search_results__WEBPACK_IMPORTED_MODULE_3__["default"]; });
+
+/* harmony import */ var _single_movie__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./single-movie */ "./client/components/styles/single-movie.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "singleMovieStyles", function() { return _single_movie__WEBPACK_IMPORTED_MODULE_4__["default"]; });
+
+/* harmony import */ var _search_form__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./search-form */ "./client/components/styles/search-form.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "searchFormStyles", function() { return _search_form__WEBPACK_IMPORTED_MODULE_5__["default"]; });
+
+
+
+
+
+
+
+
+/***/ }),
+
+/***/ "./client/components/styles/movie-search.js":
+/*!**************************************************!*\
+  !*** ./client/components/styles/movie-search.js ***!
+  \**************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @material-ui/core */ "./node_modules/@material-ui/core/esm/index.js");
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(_material_ui_core__WEBPACK_IMPORTED_MODULE_0__["makeStyles"])(function (theme) {
+  return {
+    movieSearch: {
+      backgroundColor: 'lightblue',
+      display: 'flex',
+      flexDirection: 'column'
+    }
+  };
+}));
+
+/***/ }),
+
+/***/ "./client/components/styles/search-form.js":
+/*!*************************************************!*\
+  !*** ./client/components/styles/search-form.js ***!
+  \*************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @material-ui/core */ "./node_modules/@material-ui/core/esm/index.js");
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(_material_ui_core__WEBPACK_IMPORTED_MODULE_0__["makeStyles"])(function (theme) {
+  return {
+    form: {
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'space-evenly',
+      alignItems: 'center',
+      margin: '1% 0'
+    }
+  };
+}));
+
+/***/ }),
+
+/***/ "./client/components/styles/search-results.js":
+/*!****************************************************!*\
+  !*** ./client/components/styles/search-results.js ***!
+  \****************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @material-ui/core */ "./node_modules/@material-ui/core/esm/index.js");
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(_material_ui_core__WEBPACK_IMPORTED_MODULE_0__["makeStyles"])(function (theme) {
+  return {
+    searchResults: {
+      height: '100vh',
+      display: 'flex',
+      flexDirection: 'column'
+    },
+    allMovies: {
+      height: '100vh',
+      display: 'grid',
+      gridTemplateColumns: 'auto auto auto auto',
+      gridTemplateRows: 'auto',
+      justifyContent: 'space-evenly',
+      gap: '2% 2%'
+    }
+  };
+}));
+
+/***/ }),
+
+/***/ "./client/components/styles/single-movie.js":
+/*!**************************************************!*\
+  !*** ./client/components/styles/single-movie.js ***!
+  \**************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @material-ui/core */ "./node_modules/@material-ui/core/esm/index.js");
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(_material_ui_core__WEBPACK_IMPORTED_MODULE_0__["makeStyles"])(function (theme) {
   return {
     movieCard: {
       display: 'flex',
@@ -695,85 +1173,7 @@ var useStyles = Object(_material_ui_core__WEBPACK_IMPORTED_MODULE_1__["makeStyle
       color: 'black'
     }
   };
-});
-
-var SingleMovie = function SingleMovie(_ref) {
-  var movie = _ref.movie,
-      user = _ref.user;
-  var classes = useStyles();
-  var currentNominations = {};
-
-  var _iterator = _createForOfIteratorHelper(user.nominations),
-      _step;
-
-  try {
-    for (_iterator.s(); !(_step = _iterator.n()).done;) {
-      var movieId = _step.value;
-      currentNominations[movieId] = true;
-    }
-  } catch (err) {
-    _iterator.e(err);
-  } finally {
-    _iterator.f();
-  }
-
-  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(currentNominations),
-      _useState2 = _slicedToArray(_useState, 2),
-      nominations = _useState2[0],
-      setNominations = _useState2[1];
-
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_1__["Card"], {
-    elevation: 5,
-    className: classes.movieCard
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    id: "overlay",
-    className: classes.overlay
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_1__["Button"], {
-    className: classes.nominate
-  }, "Nominate")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_1__["Typography"], {
-    id: "title",
-    component: "h1",
-    className: classes.text
-  }, movie.Title), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
-    id: "image",
-    src: movie.Poster === 'N/A' ? '/default.jpg' : movie.Poster,
-    className: classes.image
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_1__["Typography"], {
-    id: "year",
-    component: "span",
-    className: classes.text
-  }, movie.Year));
-};
-
-/* harmony default export */ __webpack_exports__["default"] = (SingleMovie);
-
-/***/ }),
-
-/***/ "./client/components/index.js":
-/*!************************************!*\
-  !*** ./client/components/index.js ***!
-  \************************************/
-/*! exports provided: Movies, AuthForm, Home, SingleMovie */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _Movies__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Movies */ "./client/components/Movies.jsx");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Movies", function() { return _Movies__WEBPACK_IMPORTED_MODULE_0__["default"]; });
-
-/* harmony import */ var _AuthForm__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AuthForm */ "./client/components/AuthForm.jsx");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "AuthForm", function() { return _AuthForm__WEBPACK_IMPORTED_MODULE_1__["default"]; });
-
-/* harmony import */ var _Home__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Home */ "./client/components/Home.jsx");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Home", function() { return _Home__WEBPACK_IMPORTED_MODULE_2__["default"]; });
-
-/* harmony import */ var _SingleMovie__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./SingleMovie */ "./client/components/SingleMovie.jsx");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SingleMovie", function() { return _SingleMovie__WEBPACK_IMPORTED_MODULE_3__["default"]; });
-
-
-
-
-
+}));
 
 /***/ }),
 
@@ -799,8 +1199,8 @@ __webpack_require__.r(__webpack_exports__);
 
 var App = function App() {
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["BrowserRouter"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Switch"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
-    path: "/home",
-    component: _components__WEBPACK_IMPORTED_MODULE_3__["Home"]
+    path: "/search",
+    component: _components__WEBPACK_IMPORTED_MODULE_3__["MovieSearch"]
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
     path: ['/login', '/signup', '/'],
     component: _components__WEBPACK_IMPORTED_MODULE_3__["AuthForm"]

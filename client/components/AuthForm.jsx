@@ -1,36 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
-import { TextField, Button, Snackbar, makeStyles } from '@material-ui/core'
-
-const useStyles = makeStyles(theme => ({
-  form: {
-    height: '45vh',
-    width: '65vw',
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'space-evenly',
-    alignItems: 'center',
-  },
-
-  method: {
-    '&:hover': {
-      cursor: 'pointer',
-      textDecoration: 'underline',
-      color: 'lightblue',
-    },
-  },
-
-  auth: {
-    height: '100vh',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-}))
+import { TextField, Button, Snackbar } from '@material-ui/core'
+import { authFormStyles } from './styles'
 
 export const AuthForm = ({ history, location }) => {
-  const classes = useStyles()
+  const classes = authFormStyles()
   const hash = { login: 'signup', signup: 'login' }
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
@@ -43,7 +18,7 @@ export const AuthForm = ({ history, location }) => {
     !(async () => {
       try {
         const { data: user } = await axios.get('/auth/me')
-        if (user.id) history.push('/home')
+        if (user.id) history.push('/search')
       } catch (error) {
         return
       }
@@ -72,7 +47,7 @@ export const AuthForm = ({ history, location }) => {
       })
       setUsername('')
       setPassword('')
-      history.push('/home')
+      history.push('/search')
     } catch (error) {
       setLoginError(true)
     }

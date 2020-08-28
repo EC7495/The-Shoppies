@@ -11,7 +11,7 @@ router.put('/nominate-movie', async (req, res, next) => {
       const nominations = user.nominations.filter(id => movieId !== id)
       await user.update({ nominations })
       res.status(202).json(user)
-    } else if (user.nominations < 5) {
+    } else if (user.nominations.length < 5) {
       await user.update({
         nominations: [...user.nominations, movieId],
       })
