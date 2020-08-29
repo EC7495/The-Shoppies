@@ -1,35 +1,26 @@
 import React from 'react'
-import { Card, Typography, Button } from '@material-ui/core'
-import { singleNominationStyles, singleMovieStyles } from './styles'
+import { Card, Button } from '@material-ui/core'
+import { singleNominationStyles } from './styles'
+import NominationDetails from './NominationDetails'
 
-const SingleNomination = ({ nomination }) => {
+const SingleNomination = ({ nomination, handleOnClick }) => {
   const nominationClasses = singleNominationStyles()
-  const movieClasses = singleMovieStyles()
   return (
     <div id="single-nomination" className={nominationClasses.singleNomination}>
-      <Card elevation={5} className={movieClasses.movieCard}>
-        <div id="overlay" className={movieClasses.overlay}>
-          <Button
-            className={movieClasses.nominate}
-            // onClick={() =>
-            //   handleOnClick(movie.imdbID, nominations.includes(movie.imdbID))
-            // }
-          >
-            {/* {nominations.includes(movie.imdbID) ? 'Withdraw vote' : 'Nominate'} */}
-          </Button>
-        </div>
-        <Typography id="title" component="h1" className={movieClasses.text}>
-          {nomination.Title}
-        </Typography>
+      <Card elevation={5} className={nominationClasses.movieCard}>
         <img
           id="image"
           src={nomination.Poster === 'N/A' ? '/default.jpg' : nomination.Poster}
-          className={movieClasses.image}
+          className={nominationClasses.image}
         ></img>
-        <Typography id="year" component="span" className={movieClasses.text}>
-          {nomination.Year}
-        </Typography>
+        <Button
+          color="primary"
+          onClick={() => handleOnClick(nomination.imdbID)}
+        >
+          Withdraw vote
+        </Button>
       </Card>
+      <NominationDetails nomination={nomination} />
     </div>
   )
 }

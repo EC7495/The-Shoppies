@@ -14,7 +14,7 @@ export default makeStyles(theme => ({
     '&:hover': {
       cursor: 'pointer',
       textDecoration: 'underline',
-      color: 'white',
+      color: '#0074d9',
     },
   },
 }))

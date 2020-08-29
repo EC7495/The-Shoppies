@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Snackbar } from '@material-ui/core'
+import { Snackbar, Typography } from '@material-ui/core'
 import axios from 'axios'
 import { Header, SingleNomination } from '../components'
 import { nominationsStyles } from './styles'
@@ -23,6 +23,18 @@ const Nominations = ({ history, location }) => {
     })()
   }, [])
 
+  const handleOnClick = async movieId => {
+    try {
+      console.log(movieId)
+      console.log(userNominations)
+      await axios.put('/api/users/nominate-movie/?remove=true', { movieId })
+      setNominations(nominations.filter(id => id !== movieId))
+    } catch (error) {
+      // setNominationError(true)
+      return
+    }
+  }
+
   return userNominations.length ? (
     <div id="nominations" className={classes.nominations}>
       <Snackbar
@@ -33,9 +45,16 @@ const Nominations = ({ history, location }) => {
         autoHideDuration={3000}
       />
       <Header history={history} location={location} />
+      <Typography align="center" variant="h1">
+        Your Nominations
+      </Typography>
       <div className={classes.mappedNominations}>
         {userNominations.map(nomination => (
-          <SingleNomination key={nomination.imdbID} nomination={nomination} />
+          <SingleNomination
+            key={nomination.imdbID}
+            nomination={nomination}
+            handleOnClick={handleOnClick}
+          />
         ))}
       </div>
     </div>

@@ -6,9 +6,10 @@ export default makeStyles(theme => ({
   },
 
   mappedNominations: {
-    height: '100%',
+    height: '100vh',
     display: 'flex',
     justifyContent: 'space-evenly',
     alignItems: 'center',
+    flexWrap: 'wrap',
   },
 }))
