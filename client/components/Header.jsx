@@ -6,14 +6,14 @@ import { headerStyles } from './styles'
 
 const Header = ({ history, location }) => {
   const classes = headerStyles()
-  const [logoutError, setLogoutError] = useState(false)
+  const [error, setError] = useState(false)
 
   const handleOnClick = async () => {
     try {
       await axios.post('/auth/logout')
       history.push('/login')
     } catch (error) {
-      setLogoutError(true)
+      setError(true)
     }
   }
 
@@ -21,8 +21,8 @@ const Header = ({ history, location }) => {
     <div id="header">
       <Snackbar
         message="Oops, an error ocurred. Try again."
-        open={logoutError}
-        onClose={() => setLogoutError(false)}
+        open={error}
+        onClose={() => setError(false)}
         anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
         autoHideDuration={3000}
       />

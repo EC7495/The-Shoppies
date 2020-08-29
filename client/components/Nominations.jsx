@@ -7,7 +7,7 @@ import { nominationsStyles } from './styles'
 const Nominations = ({ history, location }) => {
   const classes = nominationsStyles()
   const [userNominations, setUserNominations] = useState([])
-  const [fetchingError, setFetchingError] = useState(false)
+  const [error, setError] = useState(false)
 
   useEffect(() => {
     !(async () => {
@@ -17,7 +17,7 @@ const Nominations = ({ history, location }) => {
         )
         setUserNominations(fetchedNominations)
       } catch (error) {
-        setFetchingError(true)
+        setError(true)
         history.push('/search')
       }
     })()
@@ -25,12 +25,12 @@ const Nominations = ({ history, location }) => {
 
   const handleOnClick = async movieId => {
     try {
-      console.log(movieId)
-      console.log(userNominations)
       await axios.put('/api/users/nominate-movie/?remove=true', { movieId })
-      setNominations(nominations.filter(id => id !== movieId))
+      setUserNominations(
+        userNominations.filter(nomination => nomination.imdbID !== movieId)
+      )
     } catch (error) {
-      // setNominationError(true)
+      setError(true)
       return
     }
   }
@@ -38,9 +38,9 @@ const Nominations = ({ history, location }) => {
   return userNominations.length ? (
     <div id="nominations" className={classes.nominations}>
       <Snackbar
-        message="Oops. There was an error retrieving your nominations. Try again!"
-        open={fetchingError}
-        onClose={() => setFetchingError(false)}
+        message="Oops, There was an error. Try again!"
+        open={error}
+        onClose={() => setError(false)}
         anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
         autoHideDuration={3000}
       />

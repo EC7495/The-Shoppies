@@ -9,7 +9,7 @@ export const AuthForm = ({ history, location }) => {
   const hash = { login: 'signup', signup: 'login' }
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
-  const [loginError, setLoginError] = useState(false)
+  const [error, setError] = useState(false)
   const [method, setMethod] = useState(
     location.pathname.substring(1) === 'signup' ? 'signup' : 'login'
   )
@@ -49,7 +49,7 @@ export const AuthForm = ({ history, location }) => {
       setPassword('')
       history.push('/search')
     } catch (error) {
-      setLoginError(true)
+      setError(true)
     }
   }
 
@@ -61,8 +61,8 @@ export const AuthForm = ({ history, location }) => {
             ? 'Wrong username and/or password'
             : 'That username already exists!'
         }
-        open={loginError}
-        onClose={() => setLoginError(false)}
+        open={error}
+        onClose={() => setError(false)}
         anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
         autoHideDuration={3000}
       />

@@ -6,13 +6,13 @@ import { singleMovieStyles } from './styles'
 const SingleMovie = ({ movie, user }) => {
   const classes = singleMovieStyles()
   const [nominations, setNominations] = useState(user.nominations)
-  const [nominationError, setNominationError] = useState(false)
   const [nominationSuccess, setNominationSuccess] = useState(false)
   const [nominationRemoved, setNominationRemoved] = useState(false)
+  const [error, setError] = useState(false)
 
   const handleOnClick = async (movieId, remove) => {
     try {
-      if (!remove && nominations.length === 5) return setNominationError(true)
+      if (!remove && nominations.length === 5) return setError(true)
 
       await axios.put(
         `/api/users/nominate-movie${remove ? `/?remove=${true}` : ''}`,
@@ -27,7 +27,7 @@ const SingleMovie = ({ movie, user }) => {
         setNominationSuccess(true)
       }
     } catch (error) {
-      setNominationError(true)
+      setError(true)
     }
   }
 
@@ -39,8 +39,8 @@ const SingleMovie = ({ movie, user }) => {
             ? 'Max nominations reached! If you want to nominate another movie, remove one of your current nominations first.'
             : 'Oops, there was an error while trying to nominate this movie. Try again!'
         }
-        open={nominationError || nominations.length >= 5}
-        onClose={() => setNominationError(false)}
+        open={error || nominations.length >= 5}
+        onClose={() => setError(false)}
         anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
         autoHideDuration={3000}
       />
