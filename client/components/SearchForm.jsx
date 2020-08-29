@@ -6,6 +6,7 @@ import {
   Select,
   MenuItem,
   Button,
+  Snackbar,
 } from '@material-ui/core'
 import { searchFormStyles } from './styles'
 
@@ -14,6 +15,7 @@ const SearchForm = ({ setMovies }) => {
   const [movieTitle, setMovieTitle] = useState('')
   const [movieYear, setMovieYear] = useState('')
   const [movieType, setMovieType] = useState('')
+  const [error, setError] = useState(false)
 
   const handleOnChange = event => {
     switch (event.target.name) {
@@ -43,14 +45,22 @@ const SearchForm = ({ setMovies }) => {
         `/api/movies/search-movies/?title=${movieTitle}&year=${movieYear}&type=${movieType}`
       )
 
-      setMovies(fetchedMovies)
+      if (!fetchedMovies) setError(true)
+      setMovies(fetchedMovies || [])
     } catch (error) {
-      return
+      setError(true)
     }
   }
 
   return (
     <div id="search-form">
+      <Snackbar
+        message="Oops, There was an error. Try again!"
+        open={error}
+        onClose={() => setError(false)}
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+        autoHideDuration={3000}
+      />
       <form onSubmit={handleOnSubmit} className={classes.form}>
         <TextField
           required
