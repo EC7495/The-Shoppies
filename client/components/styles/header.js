@@ -2,8 +2,9 @@ import { makeStyles } from '@material-ui/core'
 
 export default makeStyles(theme => ({
   header: {
+    color: 'white',
     height: '10vh',
-    background: 'lightgray',
+    background: '#333333',
     display: 'flex',
     justifyContent: 'space-evenly',
     alignItems: 'center',
@@ -14,7 +15,7 @@ export default makeStyles(theme => ({
     '&:hover': {
       cursor: 'pointer',
       textDecoration: 'underline',
-      color: '#0074d9',
+      color: '#3f51b5',
     },
   },
 }))

@@ -39,7 +39,6 @@ export default makeStyles(theme => ({
   },
 
   text: {
-    fontFamily: 'Optima',
     transition: '.5s ease',
     opacity: '1',
   },

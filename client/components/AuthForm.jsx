@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
-import { TextField, Button, Snackbar } from '@material-ui/core'
+import { TextField, Button, Snackbar, Typography } from '@material-ui/core'
 import { authFormStyles } from './styles'
 
 export const AuthForm = ({ history, location }) => {
@@ -13,6 +13,8 @@ export const AuthForm = ({ history, location }) => {
   const [method, setMethod] = useState(
     location.pathname.substring(1) === 'signup' ? 'signup' : 'login'
   )
+
+  document.title = `The Shoppies - ${method === 'login' ? 'Login' : 'Sign Up'}`
 
   useEffect(() => {
     !(async () => {
@@ -66,8 +68,12 @@ export const AuthForm = ({ history, location }) => {
         anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
         autoHideDuration={3000}
       />
+      <Typography align="center" variant="h2">
+        {method === 'login' ? 'Login' : 'Sign Up'}
+      </Typography>
       <form onSubmit={handleOnSubmit} className={classes.form}>
         <TextField
+          style={{ color: 'black' }}
           required
           name="username"
           label={method === 'login' ? 'Username' : 'Create username'}
@@ -82,7 +88,7 @@ export const AuthForm = ({ history, location }) => {
           value={password}
           onChange={handleOnChange}
         />
-        <Button type="submit" variant="outlined">
+        <Button type="submit" variant="outlined" className={classes.button}>
           {method === 'login' ? 'Login' : 'Sign Up'}
         </Button>
         <span>

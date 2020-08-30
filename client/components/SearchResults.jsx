@@ -1,4 +1,5 @@
 import React from 'react'
+import { Typography } from '@material-ui/core'
 import SingleMovie from './SingleMovie'
 import { searchResultsStyles } from './styles'
 
@@ -14,7 +15,9 @@ const SearchResults = ({ user, movies }) => {
           ))}
         </div>
       ) : (
-        <h1>Search for your favorite movies!</h1>
+        <Typography align="center" variant="h2">
+          Search for your favorite movies!
+        </Typography>
       )}
     </div>
   )

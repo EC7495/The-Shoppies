@@ -6,26 +6,26 @@ import { singleMovieStyles } from './styles'
 const SingleMovie = ({ movie, user }) => {
   const classes = singleMovieStyles()
   const [nominations, setNominations] = useState(user.nominations)
-  const [nominationSuccess, setNominationSuccess] = useState(false)
-  const [nominationRemoved, setNominationRemoved] = useState(false)
+  const [success, setSuccess] = useState(false)
+  const [removed, setRemoved] = useState(false)
   const [error, setError] = useState(false)
 
   const handleOnClick = async (movieId, remove) => {
     try {
       if (!remove && nominations.length === 5) return setError(true)
 
-      await axios.put(
+      const { data: fetchedUser } = await axios.put(
         `/api/users/nominate-movie${remove ? `/?remove=${true}` : ''}`,
         { movieId }
       )
-
       if (remove) {
-        setNominations(nominations.filter(id => id !== movieId))
-        setNominationRemoved(true)
+        setRemoved(true)
+        setError(false)
       } else {
-        setNominations([...nominations, movieId])
-        setNominationSuccess(true)
+        setSuccess(true)
       }
+
+      setNominations(fetchedUser.nominations)
     } catch (error) {
       setError(true)
     }
@@ -41,23 +41,23 @@ const SingleMovie = ({ movie, user }) => {
         }
         open={error || nominations.length >= 5}
         onClose={() => setError(false)}
-        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
         autoHideDuration={3000}
       />
       <Snackbar
         message={`Success! ${5 - nominations.length}  nominations left.`}
-        open={nominationSuccess}
-        onClose={() => setNominationSuccess(false)}
-        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+        open={success}
+        onClose={() => setSuccess(false)}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
         autoHideDuration={3000}
       />
       <Snackbar
         message={`Nomination removed! ${
           5 - nominations.length
         }  nominations left.`}
-        open={nominationRemoved}
-        onClose={() => setNominationRemoved(false)}
-        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+        open={removed}
+        onClose={() => setRemoved(false)}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
         autoHideDuration={3000}
       />
       <Card elevation={5} className={classes.movieCard}>
@@ -71,7 +71,7 @@ const SingleMovie = ({ movie, user }) => {
             {nominations.includes(movie.imdbID) ? 'Withdraw vote' : 'Nominate'}
           </Button>
         </div>
-        <Typography id="title" component="h1" className={classes.text}>
+        <Typography id="title" component="h2" className={classes.text}>
           {movie.Title}
         </Typography>
         <img

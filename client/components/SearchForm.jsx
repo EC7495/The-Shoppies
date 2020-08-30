@@ -12,21 +12,21 @@ import { searchFormStyles } from './styles'
 
 const SearchForm = ({ setMovies }) => {
   const classes = searchFormStyles()
-  const [movieTitle, setMovieTitle] = useState('')
-  const [movieYear, setMovieYear] = useState('')
-  const [movieType, setMovieType] = useState('')
+  const [title, setTitle] = useState('')
+  const [year, setYear] = useState('')
+  const [type, setType] = useState('')
   const [error, setError] = useState(false)
 
   const handleOnChange = event => {
     switch (event.target.name) {
       case 'title':
-        setMovieTitle(event.target.value)
+        setTitle(event.target.value)
         break
       case 'year':
-        setMovieYear(event.target.value)
+        setYear(event.target.value)
         break
       case 'type':
-        setMovieType(event.target.value)
+        setType(event.target.value)
         break
       default:
         return
@@ -36,13 +36,13 @@ const SearchForm = ({ setMovies }) => {
   const handleOnSubmit = async event => {
     try {
       event.preventDefault()
-      setMovieTitle('')
-      setMovieYear('')
-      setMovieType('')
+      setTitle('')
+      setYear('')
+      setType('')
       const {
         data: { Search: fetchedMovies },
       } = await axios.get(
-        `/api/movies/search-movies/?title=${movieTitle}&year=${movieYear}&type=${movieType}`
+        `/api/movies/search-movies/?title=${title}&year=${year}&type=${type}`
       )
 
       if (!fetchedMovies) setError(true)
@@ -67,33 +67,31 @@ const SearchForm = ({ setMovies }) => {
           name="title"
           label="Title"
           variant="outlined"
-          value={movieTitle}
+          value={title}
           onChange={handleOnChange}
         />
         <TextField
           name="year"
           label="Year"
           variant="outlined"
-          value={movieYear}
+          value={year}
           onChange={handleOnChange}
           type="number"
           min={1900}
           max={new Date().getFullYear()}
         />
-        <div id="movie-type">
-          <InputLabel>Type</InputLabel>
-          <Select
-            name="type"
-            variant="outlined"
-            value={movieType}
-            onChange={handleOnChange}
-          >
-            <MenuItem value="movie">Movie</MenuItem>
-            <MenuItem value="series">Series</MenuItem>
-            <MenuItem value="episode">Episode</MenuItem>
-          </Select>
-        </div>
-        <Button type="submit" variant="outlined">
+        <InputLabel>Type</InputLabel>
+        <Select
+          name="type"
+          variant="outlined"
+          value={type}
+          onChange={handleOnChange}
+        >
+          <MenuItem value="movie">Movie</MenuItem>
+          <MenuItem value="series">Series</MenuItem>
+          <MenuItem value="episode">Episode</MenuItem>
+        </Select>
+        <Button type="submit" variant="outlined" className={classes.button}>
           Search
         </Button>
       </form>

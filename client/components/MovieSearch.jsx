@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
+import { CircularProgress } from '@material-ui/core'
 import { SearchResults, Header, SearchForm } from '../components'
 import { movieSearchStyles } from './styles'
 
@@ -7,6 +8,8 @@ const MovieSearch = ({ history, location }) => {
   const classes = movieSearchStyles()
   const [user, setUser] = useState({})
   const [movies, setMovies] = useState([])
+
+  document.title = 'The Shoppies - Search'
 
   useEffect(() => {
     !(async () => {
@@ -26,7 +29,7 @@ const MovieSearch = ({ history, location }) => {
       <SearchResults user={user} movies={movies} />
     </div>
   ) : (
-    <h1>Loading...</h1>
+    <CircularProgress />
   )
 }
 
