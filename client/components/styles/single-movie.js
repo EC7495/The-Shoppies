@@ -10,6 +10,10 @@ export default makeStyles(theme => ({
     height: '250px',
     margin: '1%',
     padding: '5%',
+    transition: 'all .3s ease-in-out',
+    '&:hover': {
+      transform: 'scale(1.02)',
+    },
     '&:hover #image': {
       opacity: '0.3',
     },

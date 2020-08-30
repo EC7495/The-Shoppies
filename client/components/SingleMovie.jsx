@@ -18,6 +18,7 @@ const SingleMovie = ({ movie, user }) => {
         `/api/users/nominate-movie${remove ? `/?remove=${true}` : ''}`,
         { movieId }
       )
+
       if (remove) {
         setRemoved(true)
         setError(false)
@@ -45,7 +46,7 @@ const SingleMovie = ({ movie, user }) => {
         autoHideDuration={3000}
       />
       <Snackbar
-        message={`Success! ${5 - nominations.length}  nominations left.`}
+        message={`Success! ${5 - nominations.length} nominations left.`}
         open={success}
         onClose={() => setSuccess(false)}
         anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
@@ -60,7 +61,7 @@ const SingleMovie = ({ movie, user }) => {
         anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
         autoHideDuration={3000}
       />
-      <Card elevation={5} className={classes.movieCard}>
+      <Card id="movie-card" elevation={5} className={classes.movieCard}>
         <div id="overlay" className={classes.overlay}>
           <Button
             className={classes.nominate}
@@ -72,7 +73,9 @@ const SingleMovie = ({ movie, user }) => {
           </Button>
         </div>
         <Typography id="title" component="h2" className={classes.text}>
-          {movie.Title}
+          {`${movie.Title.substring(0, 41)}${
+            movie.Title.length > 41 ? '...' : ''
+          }`}
         </Typography>
         <img
           id="image"

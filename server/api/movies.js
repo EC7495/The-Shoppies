@@ -8,9 +8,9 @@ router.get('/search-movies', async (req, res, next) => {
   try {
     const { title, year, type, page } = req.query
     const { data: searchedMovies } = await axios.get(
-      `http://www.omdbapi.com/?apikey=${process.env.API_KEY}&s=${title}${
-        year ? `&y=${year}` : ''
-      }${type ? `&type=${type}` : ''}&page=${page || 1}`
+      `http://www.omdbapi.com/?apikey=${process.env.API_KEY}&s=${title}&y=${
+        year || ''
+      }&type=${type || ''}&page=${page || 1}`
     )
     res.json(searchedMovies)
   } catch (error) {
