@@ -1,3 +1,5 @@
+# [Check it out here](http://theshoppies.herokuapp.com/)
+
 # Intern project for Shopify's 2021 Winter Web Developer Internship.
 
 ## Description
@@ -13,5 +15,3 @@ Users can search movies by title, year, and type. They can nominate movies, remo
 - Express
 - PostgreSQL
 - [OMDB API](http://www.omdbapi.com/)
-
-# Deployed [here](http://theshoppies.herokuapp.com/)
