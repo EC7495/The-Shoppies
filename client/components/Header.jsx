@@ -24,7 +24,7 @@ const Header = ({ history, location }) => {
         open={error}
         onClose={() => setError(false)}
         anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-        autoHideDuration={3000}
+        autoHideDuration={2000}
       />
       <header className={classes.header}>
         <Link to="/my-nominations" className={classes.headerItem}>

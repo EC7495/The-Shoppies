@@ -59,7 +59,7 @@ const SearchForm = ({ setMovies }) => {
         open={error}
         onClose={() => setError(false)}
         anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-        autoHideDuration={3000}
+        autoHideDuration={2000}
       />
       <form onSubmit={handleOnSubmit} className={classes.form}>
         <TextField

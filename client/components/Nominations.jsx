@@ -45,7 +45,7 @@ const Nominations = ({ history, location }) => {
         open={error}
         onClose={() => setError(false)}
         anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-        autoHideDuration={3000}
+        autoHideDuration={2000}
       />
       <Snackbar
         message={`Nomination removed! ${
@@ -54,7 +54,7 @@ const Nominations = ({ history, location }) => {
         open={removed}
         onClose={() => setRemoved(false)}
         anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
-        autoHideDuration={3000}
+        autoHideDuration={2000}
       />
       {nominations.length ? (
         nominations[0] ? (

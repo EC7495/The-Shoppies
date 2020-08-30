@@ -19,13 +19,7 @@ const SingleMovie = ({ movie, user }) => {
         { movieId }
       )
 
-      if (remove) {
-        setRemoved(true)
-        setError(false)
-      } else {
-        setSuccess(true)
-      }
-
+      remove ? setRemoved(true) : setSuccess(true)
       setNominations(fetchedUser.nominations)
     } catch (error) {
       setError(true)
@@ -36,21 +30,21 @@ const SingleMovie = ({ movie, user }) => {
     <div id="singe-movie">
       <Snackbar
         message={
-          nominations.length >= 5
+          nominations.length === 5
             ? 'Max nominations reached! If you want to nominate another movie, remove one of your current nominations first.'
             : 'Oops, there was an error while trying to nominate this movie. Try again!'
         }
-        open={error || nominations.length >= 5}
+        open={error || nominations.length === 5}
         onClose={() => setError(false)}
         anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
-        autoHideDuration={3000}
+        autoHideDuration={2000}
       />
       <Snackbar
         message={`Success! ${5 - nominations.length} nominations left.`}
         open={success}
         onClose={() => setSuccess(false)}
         anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
-        autoHideDuration={3000}
+        autoHideDuration={2000}
       />
       <Snackbar
         message={`Nomination removed! ${
@@ -59,7 +53,7 @@ const SingleMovie = ({ movie, user }) => {
         open={removed}
         onClose={() => setRemoved(false)}
         anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
-        autoHideDuration={3000}
+        autoHideDuration={2000}
       />
       <Card id="movie-card" elevation={5} className={classes.movieCard}>
         <div id="overlay" className={classes.overlay}>

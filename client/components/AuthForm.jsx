@@ -66,7 +66,7 @@ export const AuthForm = ({ history, location }) => {
         open={error}
         onClose={() => setError(false)}
         anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-        autoHideDuration={3000}
+        autoHideDuration={2000}
       />
       <Typography align="center" variant="h2">
         {method === 'login' ? 'Login' : 'Sign Up'}
